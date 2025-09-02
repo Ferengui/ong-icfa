@@ -1,10 +1,11 @@
 require('dotenv').config();
+process.env.CLOUDINARY_API_KEY
+
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 const path = require('path');
 
-require('dotenv').config();
-process.env.CLOUDINARY_API_KEY
+
 
 // Configurações do Cloudinary
 cloudinary.config({
