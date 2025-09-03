@@ -4,6 +4,8 @@ const lightboxImg = document.getElementById('lightbox-img');
 const lightboxText = document.getElementById('lightbox-text');
 const closeLightbox = document.getElementById('close-lightbox');
 
+const url = "/api/images"; // Nova rota fornecida pelo seu backend Express
+
 async function fetchCloudinaryImages() {
     try {
         const response = await fetch("/api/images");
