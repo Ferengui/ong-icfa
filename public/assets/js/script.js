@@ -1,53 +1,44 @@
-const cloudName = "SEU_CLOUD_NAME"; // substitua pelo seu Cloudinary cloud name
-const tag = "ong-fotos"; // ou nome da pasta/tag
 const galleryContainer = document.getElementById('gallery');
-
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxText = document.getElementById('lightbox-text');
 const closeLightbox = document.getElementById('close-lightbox');
 
-// Fetch imagens da tag/pasta no Cloudinary
 async function fetchCloudinaryImages() {
-    const url = `https://res.cloudinary.com/${cloudName}/image/list/${tag}.json`;
-
     try {
-        const response = await fetch(url);
+        const response = await fetch("/api/images");
         const data = await response.json();
 
-        data.resources.forEach((image) => {
-            const imgURL = `https://res.cloudinary.com/${cloudName}/image/upload/${image.public_id}.jpg`;
-            const imgText = image.context?.custom?.alt || "Imagem da ONG";
+        data.forEach((image) => {
+            const imageDiv = document.createElement("div");
+            imageDiv.classList.add("image");
 
-            const imageDiv = document.createElement('div');
-            imageDiv.classList.add('image');
-
-            const img = document.createElement('img');
-            img.src = imgURL;
-            img.alt = imgText;
-            img.setAttribute('data-text', imgText);
+            const img = document.createElement("img");
+            img.src = image.url;
+            img.alt = image.alt;
+            img.setAttribute("data-text", image.alt);
 
             imageDiv.appendChild(img);
             galleryContainer.appendChild(imageDiv);
 
-            img.addEventListener('click', () => {
+            img.addEventListener("click", () => {
                 lightboxImg.src = img.src;
-                lightboxText.textContent = img.getAttribute('data-text');
-                lightbox.classList.remove('hidden');
+                lightboxText.textContent = img.getAttribute("data-text");
+                lightbox.classList.remove("hidden");
             });
         });
     } catch (error) {
-        console.error("Erro ao carregar imagens do Cloudinary:", error);
+        console.error("Erro ao carregar imagens:", error);
     }
 }
 
-closeLightbox.addEventListener('click', () => {
-    lightbox.classList.add('hidden');
+closeLightbox.addEventListener("click", () => {
+    lightbox.classList.add("hidden");
 });
 
-lightbox.addEventListener('click', (e) => {
+lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
-        lightbox.classList.add('hidden');
+        lightbox.classList.add("hidden");
     }
 });
 
