@@ -1,4 +1,30 @@
-require('dotenv').config();
+// Carregar variáveis de ambiente do arquivo .env
+require('dotenv').config();  
+
+const express = require('express');
+const fileUpload = require('express-fileupload');  // Middleware para upload de arquivos
+const imageRoutes = require('./routes/imageRoutes');  // Importando as rotas de imagem
+
+// Inicializar o Express
+const app = express();
+
+// Configuração da porta (deve ser configurada no .env ou fallback para 3000)
+const port = process.env.PORT || 3000;
+
+// Usar middleware para upload de arquivos
+app.use(fileUpload());
+
+// Configurar rotas de imagens
+app.use('/api/images', imageRoutes);
+
+// Rodar o servidor na porta configurada
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
+
+
+
+/*require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cloudinary = require('cloudinary').v2;
@@ -40,3 +66,4 @@ app.get('/api/images', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando em: http://localhost:${PORT}`);
 });
+*/

@@ -30,10 +30,12 @@ async function uploadImage(filePath, fileName) {
     });
 
     // Adiciona a imagem à lista
-    imagensJSON.push({
-      src: result.secure_url,
-      text: fileName
-    });
+   imagensJSON.push({
+  src: result.secure_url,
+  text: fileName,
+  public_id: result.public_id
+});
+
 
     console.log(`✅ Enviado: ${fileName}`);
   } catch (error) {
