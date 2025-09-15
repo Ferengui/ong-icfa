@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const fileUpload = require('express-fileupload');  // Middleware para upload de arquivos
-const imageRoutes = require('./routes/imageRoutes');  // Importando as rotas de imagem
+const imageRoutes = require('../routes/imageRoutes');  // Importando as rotas de imagem
 
 // Inicializar o Express
 const app = express();
